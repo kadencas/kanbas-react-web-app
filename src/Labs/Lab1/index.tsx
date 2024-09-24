@@ -252,9 +252,14 @@ export default function Lab1() {
         </select>
 
         <h4>Anchor tag</h4>
-        Please 
+        Please
         <a id="wd-lipsum" href="https://www.lipsum.com">click here</a> 
-        to get dummy text<br/>
+         to get dummy text<br/>
+
+         <h4>Anchor tag</h4>
+        Please
+        <a id="wd-github" href="https://github.com/kadencas/kanbas-react-web-app.git">click here</a> 
+         to get github<br/>
 
     </div>
     );
