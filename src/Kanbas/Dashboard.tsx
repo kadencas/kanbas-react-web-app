@@ -7,11 +7,11 @@ export default function Dashboard() {
       <div id="wd-dashboard-courses">
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1234/Home">
+            to="/Kanbas/Courses/1234/Home">
             <img src="/images/reactjs.jpg" width={200} />
             <div>
               <h5>
-                 CS1234 React JS
+                CS1234 React JS
               </h5>
               <p className="wd-dashboard-course-title">
                 Full Stack software developer
@@ -22,11 +22,11 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1234/Home">
+            to="/Kanbas/Courses/1234/Home">
             <img src="/images/angularLogo.jpg" width={200} />
             <div>
               <h5>
-                 CS6174 Angular
+                CS6174 Angular
               </h5>
               <p className="wd-dashboard-course-title">
                 Angular
@@ -37,11 +37,11 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1234/Home">
+            to="/Kanbas/Courses/1234/Home">
             <img src="/images/cLogo.jpg" width={200} />
             <div>
               <h5>
-                 CS7164 C
+                CS7164 C
               </h5>
               <p className="wd-dashboard-course-title">
                 Programming in C
@@ -52,11 +52,11 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1234/Home">
+            to="/Kanbas/Courses/1234/Home">
             <img src="/images/discreteMath.jpg" width={200} />
             <div>
               <h5>
-                 CS8174 Discrete Math
+                CS8174 Discrete Math
               </h5>
               <p className="wd-dashboard-course-title">
                 Discrete Math
@@ -67,11 +67,11 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1234/Home">
+            to="/Kanbas/Courses/1234/Home">
             <img src="/images/javaLogo.jpg" width={200} />
             <div>
               <h5>
-                 CS1648 Java
+                CS1648 Java
               </h5>
               <p className="wd-dashboard-course-title">
                 OOD Java
@@ -82,11 +82,11 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1234/Home">
+            to="/Kanbas/Courses/1234/Home">
             <img src="/images/jsLogo.jpg" width={200} />
             <div>
               <h5>
-                 CS7165 JavaScript
+                CS7165 JavaScript
               </h5>
               <p className="wd-dashboard-course-title">
                 JavaScript
@@ -97,11 +97,11 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1234/Home">
+            to="/Kanbas/Courses/1234/Home">
             <img src="/images/pythonLogo.jpg" width={200} />
             <div>
               <h5>
-                 CS1874 Python
+                CS1874 Python
               </h5>
               <p className="wd-dashboard-course-title">
                 Python
@@ -112,11 +112,11 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1234/Home">
+            to="/Kanbas/Courses/1234/Home">
             <img src="/images/sqlLogo.jpg" width={200} />
             <div>
               <h5>
-                 CS1746 SQL
+                CS1746 SQL
               </h5>
               <p className="wd-dashboard-course-title">
                 SQL
