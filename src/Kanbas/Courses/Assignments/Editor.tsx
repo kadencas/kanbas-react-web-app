@@ -126,7 +126,7 @@ export default function AssignmentEditor() {
                     </div>
                 </div>
             </div>
-            <hr/>
+            <hr />
             <div className="d-flex justify-content-end">
                 <button id="wd-cancel-button" className="btn btn-secondary me-2">Cancel</button>
                 <button id="wd-save-button" className="btn btn-danger">Save</button>

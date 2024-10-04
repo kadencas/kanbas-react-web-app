@@ -6,10 +6,9 @@ export default function Modules() {
     return (
         <div>
             <div className="d-flex flex-column align-items-stretch w-100">
-            <div className="d-flex justify-content-end mb-4">
-                <ModulesControls />
-            </div>
-            <br /><br /><br /><br />
+                <div className="d-flex justify-content-end mb-4">
+                    <ModulesControls />
+                </div>
                 <ul id="wd-modules" className="list-group rounded-0 w-100">
                     <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
                         <div className="wd-title p-3 ps-2 bg-secondary">

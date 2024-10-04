@@ -14,7 +14,7 @@ export default function Assignments() {
                     <div className="wd-title p-3 ps-2 bg-header-2 d-flex align-items-center">
                         <BsGripVertical className="me-2 fs-3" />
                         <RxTriangleDown className="me-2" />
-                        <h3 className = "mt-2">ASSIGNMENTS</h3>
+                        <h3 className="mt-2">ASSIGNMENTS</h3>
                         <span className="ms-auto">
                             <span className="me-2 transparent-curved">
                                 40% of Total
@@ -32,15 +32,15 @@ export default function Assignments() {
                             <MdEditDocument className="me-2 fs-3 float-left" />
                         </div>
                         <div className="col-8">
-                            <a href="#/Kanbas/Courses/1234/Assignments/123" className = "no-link-style">
+                            <a href="#/Kanbas/Courses/1234/Assignments/123" className="no-link-style">
                                 <h4>A1</h4>
                             </a>
                             <span className="text-danger fw-bold">Multiple Modules</span> |
-                            <span className="fw-bold"> Not available until</span> 
+                            <span className="fw-bold"> Not available until</span>
                             <span>  May 6 at 12:00 am </span> |
                             <br />
                             <span className="fw-bold"> Due </span>
-                            <span className="text-muted">May 13 at 11:59pm | 100 Points</span> 
+                            <span className="text-muted">May 13 at 11:59pm | 100 Points</span>
                         </div>
                         <div className="col-2 pt-4">
                             <LessonControlButtons /><br />
@@ -55,15 +55,15 @@ export default function Assignments() {
                             <MdEditDocument className="me-2 fs-3 float-left" />
                         </div>
                         <div className="col-8">
-                            <a href="#/Kanbas/Courses/1234/Assignments/123" className = "no-link-style">
+                            <a href="#/Kanbas/Courses/1234/Assignments/123" className="no-link-style">
                                 <h4>A2</h4>
                             </a>
                             <span className="text-danger fw-bold">Multiple Modules</span> |
-                            <span className="fw-bold"> Not available until</span> 
+                            <span className="fw-bold"> Not available until</span>
                             <span>  May 6 at 12:00 am </span> |
                             <br />
                             <span className="fw-bold"> Due </span>
-                            <span className="text-muted">May 13 at 11:59pm | 100 Points</span> 
+                            <span className="text-muted">May 13 at 11:59pm | 100 Points</span>
                         </div>
                         <div className="col-2 pt-4">
                             <LessonControlButtons /><br />
@@ -78,15 +78,15 @@ export default function Assignments() {
                             <MdEditDocument className="me-2 fs-3 float-left" />
                         </div>
                         <div className="col-8">
-                            <a href="#/Kanbas/Courses/1234/Assignments/123" className = "no-link-style">
+                            <a href="#/Kanbas/Courses/1234/Assignments/123" className="no-link-style">
                                 <h4>A3</h4>
                             </a>
                             <span className="text-danger fw-bold">Multiple Modules</span> |
-                            <span className="fw-bold"> Not available until</span> 
+                            <span className="fw-bold"> Not available until</span>
                             <span>  May 6 at 12:00 am </span> |
                             <br />
                             <span className="fw-bold"> Due </span>
-                            <span className="text-muted">May 13 at 11:59pm | 100 Points</span> 
+                            <span className="text-muted">May 13 at 11:59pm | 100 Points</span>
                         </div>
                         <div className="col-2 pt-4">
                             <LessonControlButtons /><br />
