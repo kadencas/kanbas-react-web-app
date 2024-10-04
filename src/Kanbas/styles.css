@@ -48,3 +48,22 @@ body * {
   top: 28%;
   left: 10px;
 }
+
+.transparent-curved {
+  background-color: transparent;
+  border-radius: 30px; 
+  border: 1px solid rgba(0, 0, 0, 0.1); 
+  padding: 1rem; 
+}
+
+.bg-header-2 {
+  background-color: #ededed;
+
+}
+
+.no-link-style {
+  text-decoration: none; /* Remove underline */
+  color: inherit;        /* Inherit parent color or set a custom color */
+}
+
+
