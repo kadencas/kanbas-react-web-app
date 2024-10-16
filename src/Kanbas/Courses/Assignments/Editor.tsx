@@ -1,13 +1,26 @@
+import { useParams } from "react-router-dom";
+import * as db from "../../Database";
+
+
 export default function AssignmentEditor() {
+    const { aid } = useParams();
+    const assignment = db.assignments.find(
+        (assignment) => assignment._id === aid
+      );
+
+      if (!assignment) {
+        return <div>Assignment not found</div>;
+    }
+
     return (
         <div id="wd-assignments-editor" className="container mt-4">
             <div className="mb-3">
                 <label htmlFor="wd-name" className="form-label">Assignment Name</label>
-                <input id="wd-name" className="form-control" defaultValue="A1 - ENV + HTML" />
+                <input id="wd-name" className="form-control" defaultValue={assignment.title}/>
             </div>
             <div className="mb-3">
                 <label htmlFor="wd-description" className="form-label">Description</label>
-                <textarea id="wd-description" className="form-control"> The assignment is available online...
+                <textarea id="wd-description" className="form-control">{assignment.description}
                 </textarea>
             </div>
 
@@ -17,7 +30,7 @@ export default function AssignmentEditor() {
                     <label htmlFor="wd-points" className="form-label">Points</label>
                 </div>
                 <div className="col-md-8">
-                    <input id="wd-points" className="form-control" defaultValue={100} />
+                    <input id="wd-points" className="form-control" defaultValue={assignment.points} />
                 </div>
             </div>
 
@@ -110,16 +123,16 @@ export default function AssignmentEditor() {
                                 <label htmlFor="wd-due-date" className="form-label">Due</label>
                             </div>
                             <div className="row mb-2 align-items-center">
-                                <input type="datetime-local" id="wd-due-date" className="form-control" defaultValue="2024-05-13T23:59" />
+                                <input type="datetime-local" id="wd-due-date" className="form-control" defaultValue={assignment.dueDate} />
                             </div>
                             <div className="row align-items-center">
                                 <div className="col-md-6">
                                     <label htmlFor="wd-available-from" className="form-label">Available From</label>
-                                    <input type="datetime-local" id="wd-available-from" className="form-control" defaultValue="2024-05-06T12:00" />
+                                    <input type="datetime-local" id="wd-available-from" className="form-control" defaultValue={assignment.availableDate} />
                                 </div>
                                 <div className="col-md-6">
                                     <label htmlFor="wd-available-until" className="form-label">Until</label>
-                                    <input type="datetime-local" id="wd-available-until" className="form-control" defaultValue="2024-05-20T12:00" />
+                                    <input type="datetime-local" id="wd-available-until" className="form-control" defaultValue={assignment.availableUntil} />
                                 </div>
                             </div>
                         </div>
