@@ -1,4 +1,4 @@
-import { Link, useParams, useLocation} from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 export default function CoursesNavigation() {
     const { cid } = useParams();
     const { pathname } = useLocation();
@@ -11,21 +11,18 @@ export default function CoursesNavigation() {
         { label: "Quizzes", path: `/Kanbas/Courses/${cid}/Quizzes` },
         { label: "Grades", path: `/Kanbas/Courses/${cid}/Grades` },
         { label: "People", path: `/Kanbas/Courses/${cid}/People` },
-      ];
-
+    ];
 
     return (
         <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
-        {links.map((link) => (
-            <Link
-                key={link.label}
-                to={link.path}
-                className={`list-group-item border border-0 ${pathname.includes(link.label) ? "active" : "text-danger"
-                    }`}
-            >
-                {link.label}
-            </Link>
-        ))}
-    </div>
+            {links.map((link) => (
+                <Link
+                    key={link.label}
+                    to={link.path}
+                    className={`list-group-item border border-0 ${pathname.includes(link.label) ? "active" : "text-danger"}`}>
+                    {link.label}
+                </Link>
+            ))}
+        </div>
     );
 }

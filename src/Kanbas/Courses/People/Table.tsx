@@ -31,7 +31,6 @@ export default function PeopleTable() {
                                 <td className="wd-total-activity">{user.totalActivity}</td>
                             </tr>
                         ))}
-
                 </tbody>
             </table>
         </div>);

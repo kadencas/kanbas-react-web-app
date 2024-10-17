@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import * as db from "../../Database";
 
+{/* find the assignment based on aid in URL (using find function on the assignments in db),
+    then dynamically update all of the placeholders with data from the assignment. */}
 
 export default function AssignmentEditor() {
     const { aid } = useParams();

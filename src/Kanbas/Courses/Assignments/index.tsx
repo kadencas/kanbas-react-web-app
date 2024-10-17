@@ -8,7 +8,9 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import * as db from "../../Database";
 
-
+{/* simply gets an array of assignment objects where the course is the ID in the URL (using filter method), 
+    then maps a line item for each assignment in the array (using map method), 
+    filling in the title and dates dynamically based on the course. */} 
 
 export default function Assignments() {
     const { cid } = useParams();
@@ -16,12 +18,11 @@ export default function Assignments() {
         (assignment) => assignment.course === cid
       );
 
-
     return (
         <div id="wd-assignments">
             <AssignmentSearch />
 
-
+            {/* NO JS LOGIC HERE */}
             <ul id="wd-assignments" className="list-group rounded-0 w-100">
                 <li className="wd-lesson list-group-item fs-5 bg-header-2">
                     <div className="wd-title p-3 ps-2 bg-header-2 d-flex align-items-center">
@@ -38,6 +39,7 @@ export default function Assignments() {
                     </div>
                 </li>
 
+                {/* map each assignment for this class to a new line item with literals */}
                 {assignments.map((assignment) => (
                     <li key={assignment._id} className="wd-lesson list-group-item p-3 ps-1">
                         <div className="row">
