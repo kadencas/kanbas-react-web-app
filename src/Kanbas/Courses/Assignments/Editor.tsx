@@ -1,11 +1,14 @@
 import { useParams } from "react-router-dom";
 import * as db from "../../Database";
+import { Link } from "react-router-dom";
 
 {/* find the assignment based on aid in URL (using find function on the assignments in db),
     then dynamically update all of the placeholders with data from the assignment. */}
 
+
 export default function AssignmentEditor() {
     const { aid } = useParams();
+    const { cid } = useParams();
     const assignment = db.assignments.find(
         (assignment) => assignment._id === aid
       );
@@ -143,8 +146,8 @@ export default function AssignmentEditor() {
             </div>
             <hr />
             <div className="d-flex justify-content-end">
-                <button id="wd-cancel-button" className="btn btn-secondary me-2">Cancel</button>
-                <button id="wd-save-button" className="btn btn-danger">Save</button>
+                <Link to={`/Kanbas/Courses/${cid}/Assignments`}  id="wd-cancel-linlk" className="btn btn-secondary me-2">Cancel</Link>
+                <Link to={`/Kanbas/Courses/${cid}/Assignments`} id="wd-save-button" className="btn btn-danger">Save</Link>
             </div>
         </div>
     );
