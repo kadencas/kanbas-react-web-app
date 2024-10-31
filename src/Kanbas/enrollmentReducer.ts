@@ -1,4 +1,3 @@
-// enrollmentsSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import { enrollments as initialEnrollments } from "./Database";
 
