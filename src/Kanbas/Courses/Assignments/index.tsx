@@ -3,20 +3,36 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 import { BsGripVertical } from "react-icons/bs";
 import { RxTriangleDown } from "react-icons/rx";
 import { MdEditDocument } from "react-icons/md";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaTrash } from "react-icons/fa6";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { useParams } from "react-router-dom";
-import * as db from "../../Database";
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteAssignment } from "./reducer";
 
 {/* simply gets an array of assignment objects where the course is the ID in the URL (using filter method), 
     then maps a line item for each assignment in the array (using map method), 
-    filling in the title and dates dynamically based on the course. */} 
+    filling in the title and dates dynamically based on the course. */}
 
 export default function Assignments() {
     const { cid } = useParams();
-    const assignments = db.assignments.filter(
-        (assignment) => assignment.course === cid
-      );
+
+    // refactored this to use the redux state of assignment
+    const assignments = useSelector(
+        (state: any) => state.assignmentsReducer.assignments
+    );
+
+    // filter to get assignments for the course from cid, and boom... the rest of the code barely changes
+    const filteredAssignments = assignments.filter(
+        (assignment: any) => assignment.course === cid
+    );
+
+    const dispatch = useDispatch();
+
+    const handleDelete = (assignmentId: string) => {
+        if (window.confirm('Are you sure you want to delete this assignment?')) {
+            dispatch(deleteAssignment(assignmentId));
+        }
+    };
 
     return (
         <div id="wd-assignments">
@@ -39,8 +55,9 @@ export default function Assignments() {
                     </div>
                 </li>
 
+
                 {/* map each assignment for this class to a new line item with literals */}
-                {assignments.map((assignment) => (
+                {filteredAssignments.map((assignment: any) => (
                     <li key={assignment._id} className="wd-lesson list-group-item p-3 ps-1">
                         <div className="row">
                             <div className="col-2 pt-4">
@@ -53,17 +70,24 @@ export default function Assignments() {
                                 </a>
                                 <span className="text-danger fw-bold">Multiple Modules</span> |
                                 <span className="fw-bold"> Not available until</span>
-                                <span> {assignment.availableDatePretty} </span> |
+                                <span> {assignment.availableDate} </span> |
                                 <br />
                                 <span className="fw-bold"> Due </span>
-                                <span className="text-muted">{assignment.dueDatePretty} | {assignment.points} Points</span>
+                                <span className="text-muted">{assignment.dueDate} | {assignment.points} Points</span>
                             </div>
-                            <div className="col-2 pt-4">
+                            <div className="col-2 pt-4 d-flex align-items-center">
                                 <LessonControlButtons /><br />
+                                <button
+                                onClick={() => handleDelete(assignment._id)}
+                                className="btn btn-danger"
+                            >
+                                <FaTrash />
+                            </button>
                             </div>
+                            
                         </div>
                     </li>
-                ))}   
+                ))}
             </ul>
         </div>
     );
