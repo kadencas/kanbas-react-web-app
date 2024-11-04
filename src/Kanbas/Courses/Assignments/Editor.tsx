@@ -14,6 +14,12 @@ export default function AssignmentEditor() {
         (state: any) => state.assignmentsReducer.assignments
     );
 
+    const currentUser = useSelector(
+        (state: any) => state.accountReducer.currentUser
+    )
+
+    const isReadOnly = currentUser.role === "STUDENT";
+
     let assignment: any;
 
     // if the id is NEW then make a new assignment object with blank fields
@@ -54,18 +60,18 @@ export default function AssignmentEditor() {
         const [points, setPoints] = useState(assignment.points);
         const [dueDate, setDueDate] = useState(assignment.dueDate);
         const [availableDate, setAvailableDate] = useState(assignment.availableDate);
-        const [availableUntil, setAvailableUntil] = useState(assignment.AvailableUntil);
+        const [availableUntil, setAvailableUntil] = useState(assignment.availableUntil);
 
 
         return (
             <div id="wd-assignments-editor" className="container mt-4">
                 <div className="mb-3">
                     <label htmlFor="wd-name" className="form-label">Assignment Name</label>
-                    <input id="wd-name" className="form-control" defaultValue={assignment.title} onChange={(e) => setTitle(e.target.value)} />
+                    <input id="wd-name" className="form-control" defaultValue={assignment.title} onChange={(e) => setTitle(e.target.value)} readOnly={isReadOnly}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="wd-description" className="form-label">Description</label>
-                    <textarea id="wd-description" className="form-control" onChange={(e) => setDescription(e.target.value)}>{assignment.description}
+                    <textarea id="wd-description" className="form-control" onChange={(e) => setDescription(e.target.value)} readOnly={isReadOnly}>{assignment.description}
                     </textarea>
                 </div>
 
@@ -75,7 +81,7 @@ export default function AssignmentEditor() {
                         <label htmlFor="wd-points" className="form-label">Points</label>
                     </div>
                     <div className="col-md-8">
-                        <input id="wd-points" className="form-control" defaultValue={assignment.points} onChange={(e) => setPoints(e.target.value)} />
+                        <input id="wd-points" className="form-control" defaultValue={assignment.points} onChange={(e) => setPoints(e.target.value)} readOnly={isReadOnly}/>
                     </div>
                 </div>
 
@@ -85,7 +91,7 @@ export default function AssignmentEditor() {
                         <label htmlFor="wd-group" className="form-label">Assignment Group</label>
                     </div>
                     <div className="col-md-8">
-                        <select id="wd-group" className="form-control">
+                        <select id="wd-group" className="form-control" >
                             <option value="option1">ASSIGNMENTS</option>
                             <option value="option2">Option 2</option>
                             <option value="option3">Option 3</option>
@@ -107,7 +113,7 @@ export default function AssignmentEditor() {
                     </div>
                 </div>
 
-                {/* ROW - 2 coolumns, submission type/card, submission type on right, card contains more forms */}
+                {/* ROW - 2 columns, submission type/card, submission type on right, card contains more forms */}
                 <div className="row mb-3">
                     <div className="col-md-4 text-end">
                         <label htmlFor="wd-submission-type" className="form-label">Submission Type</label>
@@ -116,7 +122,7 @@ export default function AssignmentEditor() {
                         <div className="card mb-4">
                             <div className="card-body">
                                 <div className="row mb-3 align-items-center">
-                                    <select id="wd-submission-type" className="form-control">
+                                    <select id="wd-submission-type" className="form-control" disabled={isReadOnly}>
                                         <option value="option1">Online</option>
                                         <option value="option2">Option 2</option>
                                         <option value="option3">Option 3</option>
@@ -125,23 +131,23 @@ export default function AssignmentEditor() {
                                 <div className="row mb-3 align-items-center">
                                     <label className="form-label mb-3">Online Entry Options</label>
                                     <div className="form-check">
-                                        <input type="checkbox" id="wd-text-entry" className="form-check-input" />
+                                        <input type="checkbox" id="wd-text-entry" className="form-check-input" disabled={isReadOnly}/>
                                         <label htmlFor="wd-text-entry" className="form-check-label mb-3">Text Entry</label>
                                     </div>
                                     <div className="form-check">
-                                        <input type="checkbox" id="wd-website-url" className="form-check-input" />
+                                        <input type="checkbox" id="wd-website-url" className="form-check-input" disabled={isReadOnly}/>
                                         <label htmlFor="wd-website-url" className="form-check-label mb-3">Website URL</label>
                                     </div>
                                     <div className="form-check">
-                                        <input type="checkbox" id="wd-media-recordings" className="form-check-input" />
+                                        <input type="checkbox" id="wd-media-recordings" className="form-check-input" disabled={isReadOnly}/>
                                         <label htmlFor="wd-media-recordings" className="form-check-label mb-3">Media Recordings</label>
                                     </div>
                                     <div className="form-check">
-                                        <input type="checkbox" id="wd-student-annotation" className="form-check-input" />
+                                        <input type="checkbox" id="wd-student-annotation" className="form-check-input" disabled={isReadOnly}/>
                                         <label htmlFor="wd-student-annotation" className="form-check-label mb-3">Student Annotation</label>
                                     </div>
                                     <div className="form-check">
-                                        <input type="checkbox" id="wd-file-upload" className="form-check-input" />
+                                        <input type="checkbox" id="wd-file-upload" className="form-check-input" disabled={isReadOnly}/>
                                         <label htmlFor="wd-file-upload" className="form-check-label mb-3">File Uploads</label>
                                     </div>
                                 </div>
@@ -162,22 +168,22 @@ export default function AssignmentEditor() {
                                     <label htmlFor="wd-assign-to" className="form-label">Assign To</label>
                                 </div>
                                 <div className="row mb-2 align-items-center">
-                                    <input id="wd-assign-to" className="form-control" defaultValue="Everyone" />
+                                    <input id="wd-assign-to" className="form-control" defaultValue="Everyone" readOnly={isReadOnly} />
                                 </div>
                                 <div className="row align-items-center">
                                     <label htmlFor="wd-due-date" className="form-label">Due</label>
                                 </div>
                                 <div className="row mb-2 align-items-center">
-                                    <input type="datetime-local" id="wd-due-date" className="form-control" defaultValue={assignment.dueDate} onChange={(e) => setDueDate(e.target.value)} />
+                                    <input type="datetime-local" id="wd-due-date" className="form-control" defaultValue={assignment.dueDate} onChange={(e) => setDueDate(e.target.value)} readOnly={isReadOnly}/>
                                 </div>
                                 <div className="row align-items-center">
                                     <div className="col-md-6">
                                         <label htmlFor="wd-available-from" className="form-label">Available From</label>
-                                        <input type="datetime-local" id="wd-available-from" className="form-control" defaultValue={assignment.availableDate} onChange={(e) => setAvailableDate(e.target.value)} />
+                                        <input type="datetime-local" id="wd-available-from" className="form-control" defaultValue={assignment.availableDate} onChange={(e) => setAvailableDate(e.target.value)} readOnly={isReadOnly}/>
                                     </div>
                                     <div className="col-md-6">
                                         <label htmlFor="wd-available-until" className="form-label">Until</label>
-                                        <input type="datetime-local" id="wd-available-until" className="form-control" defaultValue={assignment.availableUntil} onChange={(e) => setAvailableUntil(e.target.value)} />
+                                        <input type="datetime-local" id="wd-available-until" className="form-control" defaultValue={assignment.availableUntil} onChange={(e) => setAvailableUntil(e.target.value)} readOnly={isReadOnly}/>
                                     </div>
                                 </div>
                             </div>

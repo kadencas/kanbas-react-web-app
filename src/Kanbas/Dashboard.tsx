@@ -90,7 +90,7 @@ export default function Dashboard(
       <hr />
 
       {currentUser.role === "STUDENT" && (
-        <button onClick={handleToggle} className="btn btn-primary">
+        <button onClick={handleToggle} className="btn btn-primary float-end">
           Enrollments
         </button>
       )}

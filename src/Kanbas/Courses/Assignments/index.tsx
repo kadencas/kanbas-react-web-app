@@ -21,6 +21,8 @@ export default function Assignments() {
         (state: any) => state.assignmentsReducer.assignments
     );
 
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
+
     // filter to get assignments for the course from cid, and boom... the rest of the code barely changes
     const filteredAssignments = assignments.filter(
         (assignment: any) => assignment.course === cid
@@ -77,14 +79,19 @@ export default function Assignments() {
                             </div>
                             <div className="col-2 pt-4 d-flex align-items-center">
                                 <LessonControlButtons /><br />
-                                <button
-                                onClick={() => handleDelete(assignment._id)}
-                                className="btn btn-danger"
-                            >
-                                <FaTrash />
-                            </button>
+
+                                {currentUser.role === "FACULTY" && (
+                                    <>
+                                        <button
+                                            onClick={() => handleDelete(assignment._id)}
+                                            className="btn btn-danger"
+                                        >
+                                            <FaTrash />
+                                        </button>
+                                    </>
+                                )}
                             </div>
-                            
+
                         </div>
                     </li>
                 ))}
