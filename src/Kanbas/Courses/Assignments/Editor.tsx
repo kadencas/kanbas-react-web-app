@@ -91,7 +91,7 @@ export default function AssignmentEditor() {
                         <label htmlFor="wd-group" className="form-label">Assignment Group</label>
                     </div>
                     <div className="col-md-8">
-                        <select id="wd-group" className="form-control" >
+                        <select id="wd-group" className="form-control"  disabled={isReadOnly} >
                             <option value="option1">ASSIGNMENTS</option>
                             <option value="option2">Option 2</option>
                             <option value="option3">Option 3</option>
@@ -105,7 +105,7 @@ export default function AssignmentEditor() {
                         <label htmlFor="wd-display-grade-as" className="form-label">Display Grade As</label>
                     </div>
                     <div className="col-md-8">
-                        <select id="wd-display-grade-as" className="form-control">
+                        <select id="wd-display-grade-as" className="form-control"  disabled={isReadOnly}>
                             <option value="option1">PERCENTAGE</option>
                             <option value="option2">Option 2</option>
                             <option value="option3">Option 3</option>
