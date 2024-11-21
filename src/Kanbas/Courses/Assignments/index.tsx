@@ -7,7 +7,10 @@ import { FaPlus, FaTrash } from "react-icons/fa6";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteAssignment } from "./reducer";
+import { setAssignments, deleteAssignment } from "./reducer";
+import { useState, useEffect } from "react";
+import * as coursesClient from "../client";
+import * as assignmentClient from "./client"
 
 {/* simply gets an array of assignment objects where the course is the ID in the URL (using filter method), 
     then maps a line item for each assignment in the array (using map method), 
@@ -30,8 +33,17 @@ export default function Assignments() {
 
     const dispatch = useDispatch();
 
-    const handleDelete = (assignmentId: string) => {
+    const fetchAssignments = async () => {
+        const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignments));
+    }
+    useEffect(() => {
+        fetchAssignments();
+    }, []);
+
+    const handleDelete = async (assignmentId: string) => {
         if (window.confirm('Are you sure you want to delete this assignment?')) {
+            await assignmentClient.deleteAssignment(assignmentId);
             dispatch(deleteAssignment(assignmentId));
         }
     };
