@@ -23,6 +23,7 @@ export default function Kanbas() {
             const allCourses = await coursesClient.fetchAllCourses();
             setAllCourses(allCourses);
         } catch (error) {
+            console.log("no user logged in")
             console.error(error);
         }
     };
