@@ -54,8 +54,9 @@ export default function AssignmentEditor() {
             };
             if (assignment._id === null) {
                 if (!cid) return;
-                await coursesClient.createAssignmentForCourse(cid, updatedAssignment);
-                dispatch(addAssignment(updatedAssignment));
+                const createdAssignment = await coursesClient.createAssignmentForCourse(cid, updatedAssignment);
+                console.log("assignment:", createdAssignment)
+                dispatch(addAssignment(createdAssignment));
               } else {
                 await assignmentsClient.updateAssignment(updatedAssignment);
                 dispatch(updateAssignment(updatedAssignment));
