@@ -12,45 +12,77 @@ import Session from "./Account/Session";
 import { useSelector } from "react-redux";
 
 export default function Kanbas() {
-    const [courses, setCourses] = useState<any[]>([]);
-    const [allCourses, setAllCourses] = useState<any[]>([]);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const [courses, setCourses] = useState<any[]>([]);
+    const [enrolling, setEnrolling] = useState<boolean>(false);
 
-    const fetchCourses = async () => {
+    const findCoursesForUser = async () => {
         try {
-            const courses = await userClient.findMyCourses();
-            setCourses(courses);
-            const allCourses = await coursesClient.fetchAllCourses();
-            setAllCourses(allCourses);
+          const courses = await userClient.findCoursesForUser(currentUser._id);
+          setCourses(courses);
         } catch (error) {
-            console.log("no user logged in")
-            console.error(error);
+          console.error(error);
         }
-    };
-    useEffect(() => {
-        fetchCourses();
-    }, [currentUser]);
+      };
+
+      const updateEnrollment = async (courseId: string, enrolled: boolean) => {
+        if (enrolled) {
+          await userClient.enrollIntoCourse(currentUser._id, courseId);
+        } else {
+          await userClient.unenrollFromCourse(currentUser._id, courseId);
+        }
+        setCourses(
+          courses.map((course) => {
+            if (course._id === courseId) {
+              return { ...course, enrolled: enrolled };
+            } else {
+              return course;
+            }
+          })
+        );
+      };
+     
+      const fetchCourses = async () => {
+        try {
+          const allCourses = await coursesClient.fetchAllCourses();
+          const enrolledCourses = await userClient.findCoursesForUser(
+            currentUser._id
+          );
+          const courses = allCourses.map((course: any) => {
+            if (enrolledCourses.find((c: any) => c._id === course._id)) {
+              return { ...course, enrolled: true };
+            } else {
+              return course;
+            }
+          });
+          setCourses(courses);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      useEffect(() => {
+        if (enrolling) {
+          fetchCourses();
+        } else {
+          findCoursesForUser();
+        }
+      }, [currentUser, enrolling]);
+     
 
     const [course, setCourse] = useState<any>({
-        _id: "1234", name: "New Course", number: "New Number",
-        startDate: "2023-09-10", endDate: "2023-12-15", description: "New Description",
+        _id: "", 
+        name: "New Course", 
+        number: "New Number",
+        startDate: "2023-09-10", 
+        endDate: "2023-12-15", 
+        description: "New Description",
     });
+
     const addNewCourse = async () => {
-        const newCourse = await userClient.createCourse(course);
+        const newCourse = await coursesClient.createCourse(course);
         setCourses([...courses, newCourse]);
     };
-
-    const enrollInCourse = async (courseId: any) => {
-        console.log("passing course ID to the client.ts:", courseId)
-        const newCourse = await userClient.enroll(courseId);
-        setCourses([...courses, newCourse]);
-    }
-
-    const unenrollInCourse = async (courseId: any) => {
-        console.log("Unenrolling in course:", courseId);
-        await userClient.unenroll(courseId);
-        await fetchCourses();
-    }
 
     const deleteCourse = async (courseId: string) => {
         const status = await coursesClient.deleteCourse(courseId);
@@ -82,14 +114,14 @@ export default function Kanbas() {
                             <ProtectedRoute>
                                 <Dashboard
                                     courses={courses}
-                                    allCourses={allCourses}
                                     course={course}
                                     setCourse={setCourse}
                                     addNewCourse={addNewCourse}
                                     deleteCourse={deleteCourse}
                                     updateCourse={updateCourse}
-                                    enrollInCourse={enrollInCourse}
-                                    unenrollInCourse={unenrollInCourse}/>
+                                    enrolling={enrolling} 
+                                    setEnrolling={setEnrolling}
+                                    updateEnrollment={updateEnrollment}/>
                             </ProtectedRoute>
                         } />
                         <Route path="Courses/:cid/*" element={<ProtectedRoute><Courses courses={courses} /></ProtectedRoute>} />

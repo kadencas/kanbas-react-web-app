@@ -35,16 +35,16 @@ export const createCourse = async (course: any) => {
   const { data } = await axiosWithCredentials.post(`${USERS_API}/current/courses`, course);
   return data;
 };
-export const enroll = async(courseID: any) => {
+export const enroll = async (courseID: any) => {
   console.log("posting object:", { enrollCourseID: courseID })
   const response = await axiosWithCredentials.post(`${USERS_API}/current/enroll`, { enrollCourseID: courseID });
   console.log("returned response course object:", response.data)
-  return response.data;  
+  return response.data;
 }
-export const unenroll = async(courseID: any) => {
+export const unenroll = async (courseID: any) => {
   console.log("unenrolling from course", courseID)
   const response = await axiosWithCredentials.post(`${USERS_API}/current/unenroll`, { unenrollCourseID: courseID });
-  return response.data; 
+  return response.data;
 }
 
 export const findUsersByRole = async (role: string) => {
@@ -63,13 +63,29 @@ export const findUserById = async (id: string) => {
   return response.data;
 };
 export const deleteUser = async (userId: string) => {
-  const response = await axios.delete( `${USERS_API}/${userId}` );
+  const response = await axios.delete(`${USERS_API}/${userId}`);
   return response.data;
 };
 export const createUser = async (user: any) => {
   const response = await axios.post(`${USERS_API}`, user);
   return response.data;
 };
+export const findCoursesForUser = async (userId: string) => {
+  console.log("looking for courses for ID:", userId)
+  const response = await axiosWithCredentials.get(`${USERS_API}/${userId}/courses2`);
+  console.log(response.data)
+  return response.data;
+};
+export const enrollIntoCourse = async (userId: string, courseId: string) => {
+  const response = await axiosWithCredentials.post(`${USERS_API}/${userId}/courses/${courseId}`);
+  return response.data;
+};
+export const unenrollFromCourse = async (userId: string, courseId: string) => {
+  const response = await axiosWithCredentials.delete(`${USERS_API}/${userId}/courses/${courseId}`);
+  return response.data;
+};
+
+
 
 
 

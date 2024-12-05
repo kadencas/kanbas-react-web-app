@@ -1,54 +1,36 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addEnrollment, deleteEnrollment } from "./enrollmentReducer";
-import * as userClient from "./Account/client";
 
 
 export default function Dashboard(
   /* Paramaters passed into the dashboard component */
-  { courses, allCourses, course, setCourse, addNewCourse, deleteCourse, updateCourse, enrollInCourse, unenrollInCourse}:
+  { courses, course, setCourse, addNewCourse, deleteCourse, updateCourse, enrolling, setEnrolling, updateEnrollment }:
     {
       /* Specify the type of each paramater passed into dashboard */
       courses: any[];
-      allCourses: any[];
       course: any;
       setCourse: (course: any) => void;
       addNewCourse: () => void;
-      deleteCourse: (course: any) => void;
+      deleteCourse: (courseID: string) => void;
       updateCourse: () => void;
-      enrollInCourse: (courseId: any) => void;
-      unenrollInCourse: (courseId: any) => void;
+      enrolling: boolean;
+      setEnrolling: (enrolling: boolean) => void;
+      updateEnrollment: (courseId: string, enrolled: boolean) => void 
     }) {
+
   /* make variables currentUser and enrollments from the Redux store, allow dispatch for actions */
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = useSelector((state: any) => state.enrollmentReducer);
   const dispatch = useDispatch();
 
-  /* local state variable to toggleEnrollments true/false and function to change */
-  const [toggleEnrollments, setToggleEnrollments] = useState<boolean>(true);
-  function handleToggle() {
-    setToggleEnrollments(!toggleEnrollments);
-  }
-
-  /* the courses we are displaying */
-  const coursesToDisplay = toggleEnrollments ? courses : allCourses;
-
-  const handleEnroll = async (courseId: any) => {
-    enrollInCourse(courseId)
-  };
-
-  const handleUnenroll = async (courseId: any) => {
-    console.log("unenroll user from course:", courseId)
-    unenrollInCourse(courseId)
-  };
 
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
 
       {/* FACULTY NEW COURSE/UPDATE COURSE SECTION*/}
-      {currentUser.role === "FACULTY" && (
+      {(currentUser.role === "FACULTY" || currentUser.role === "ADMIN")&& (
         <>
           <h5>
             New Course
@@ -86,24 +68,20 @@ export default function Dashboard(
 
       {/* PUBLISHED/ENROLLED COURSES HEADER */}
       <h2 id="wd-dashboard-published">
-        Published Courses ({allCourses.length})
-        Enrolled Courses ({courses.length})
+        Courses ({courses.length})
       </h2>{" "}
       <hr />
 
       {/* ENROLLMENTS BUTTON THAT TOGGLES ENROLLMENTS */}
-      {currentUser.role === "STUDENT" && (
-        <button onClick={handleToggle} className="btn btn-primary float-end">
-          Enrollments
-        </button>
-      )}
+      <button onClick={() => setEnrolling(!enrolling)} className="float-end btn btn-primary" >
+        {enrolling ? "My Courses" : "All Courses"}
+      </button>
+
 
       {/* THE ACTUAL DASHBOARD */}
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {coursesToDisplay.map((course) => {
-            const isEnrolled = courses.some((enrolledCourse) => enrolledCourse._id === course._id);
-            return (
+          {courses.map((course) => (
               <div
                 key={course._id}
                 className="wd-dashboard-course col"
@@ -119,6 +97,14 @@ export default function Dashboard(
                   />
                   <div className="card-body">
                     <h5 className="wd-dashboard-course-title card-title">
+                      {enrolling && (
+                        <button onClick={(event) => {
+                          event.preventDefault();
+                          updateEnrollment(course._id, !course.enrolled);
+                        }} className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`} >
+                          {course.enrolled ? "Unenroll" : "Enroll"}
+                        </button>
+                      )}
                       {course.name}
                     </h5>
                     <p
@@ -134,31 +120,8 @@ export default function Dashboard(
                       <button className="btn btn-primary">Go</button>
                     </Link>
 
-                    {/* STUDENT EDIT BUTTONS */}
-                    {currentUser.role === "STUDENT" && (
-                      <>
-                        {isEnrolled ? (
-                          <button
-                            className="btn btn-danger float-end"
-                            id="wd-unenroll-course-click"
-                            onClick={() => handleUnenroll(course._id)}
-                          >
-                            Unenroll
-                          </button>
-                        ) : (
-                          <button
-                            className="btn btn-success float-end"
-                            id="wd-enroll-course-click"
-                            onClick={() => handleEnroll(course._id)}
-                          >
-                            Enroll
-                          </button>
-                        )}
-                      </>
-                    )}
-
                     {/* FACULTY EDIT BUTTONS */}
-                    {currentUser.role === "FACULTY" && (
+                    {(currentUser.role === "FACULTY" || currentUser.role === "ADMIN") && (
                       <>
                         <button
                           onClick={(event) => {
@@ -185,8 +148,8 @@ export default function Dashboard(
                   </div>
                 </div>
               </div>
-            );
-          })}
+            )
+          )}
         </div>
       </div >
     </div >
