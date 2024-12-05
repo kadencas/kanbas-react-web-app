@@ -12,7 +12,9 @@ export default function Profile() {
 
   const updateProfile = async () => {
     const updatedProfile = await client.updateUser(profile);
+    console.log(updatedProfile);
     dispatch(setCurrentUser(updatedProfile));
+    setProfile(updatedProfile);
   };
 
   const fetchProfile = () => {
@@ -34,22 +36,22 @@ export default function Profile() {
       {profile && (
         <div>
           Username:
-          <input defaultValue={profile.username} id="wd-username" className="form-control mb-2"
+          <input value={profile.username} id="wd-username" className="form-control mb-2"
             onChange={(e) => setProfile({ ...profile, username: e.target.value })} />
             Password:
-          <input defaultValue={profile.password} id="wd-password" className="form-control mb-2"
+          <input value={profile.password} id="wd-password" className="form-control mb-2"
             onChange={(e) => setProfile({ ...profile, password: e.target.value })} />
             First Name:
-          <input defaultValue={profile.firstName} id="wd-firstname" className="form-control mb-2"
+          <input value={profile.firstName} id="wd-firstname" className="form-control mb-2"
             onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} />
             Last Name:
-          <input defaultValue={profile.lastName} id="wd-lastname" className="form-control mb-2"
+          <input value={profile.lastName} id="wd-lastname" className="form-control mb-2"
             onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} />
             Birthday:
-          <input defaultValue={profile.dob} id="wd-dob" className="form-control mb-2"
+          <input value={profile.dob} id="wd-dob" className="form-control mb-2"
             onChange={(e) => setProfile({ ...profile, dob: e.target.value })} type="date" />
             Email:
-          <input defaultValue={profile.email} id="wd-email" className="form-control mb-2"
+          <input value={profile.email} id="wd-email" className="form-control mb-2"
             onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
             Role:
           <select 

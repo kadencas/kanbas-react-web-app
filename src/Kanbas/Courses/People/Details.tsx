@@ -14,7 +14,7 @@ export default function PeopleDetails() {
     const [name, setName] = useState("");
     const [editing, setEditing] = useState(false);
     const saveUser = async () => {
-        const [firstName, lastName] = name.split(" ");
+        const [firstName = name, lastName = ""] = name.split(" ");
         const updatedUser = { ...user, firstName, lastName };
         await client.updateUser(updatedUser);
         setUser(updatedUser);
@@ -47,6 +47,9 @@ export default function PeopleDetails() {
     const fetchUser = async () => {
         if (!uid) return;
         const user = await client.findUserById(uid);
+        setRole(user.role || "");
+        setEmail(user.email || "");
+        setName(`${user.firstName || ""} ${user.lastName || ""}`.trim());
         setUser(user);
     };
 
@@ -83,7 +86,7 @@ export default function PeopleDetails() {
             </div>
 
             <div className="mt-3">
-                <b>Roles:</b>
+                <b>Role: </b>
                 {!editingRole && (
                     <>
                         <FaPencil onClick={() => setEditingRole(true)} className="float-end fs-5 mt-2 wd-edit" />
